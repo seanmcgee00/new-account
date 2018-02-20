@@ -3,7 +3,7 @@ package com.qa.application;
 import com.qa.domain.Account;
 import com.qa.service.AccountService;
 import com.qa.util.JSONUtil;
-
+// comment
 public class App {
 
 	public static void main(String[] args) {
