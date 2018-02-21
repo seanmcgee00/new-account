@@ -1,10 +1,27 @@
 package com.qa.domain;
 
-public class Account {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+
+
+@Entity
+public class Account {
+	
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
+	@Column(length=30)
 	private String firstName;
+	@Column(length=30)
 	private String secondName;
+	@Column(length=10)
 	private String accountNumber;
+	
+	public Account()
+	{}
 
 	public Account(String firstName, String secondName, String accountNumber) {
 		this.firstName = firstName;
