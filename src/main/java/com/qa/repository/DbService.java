@@ -18,15 +18,15 @@ import com.qa.domain.Account;
 import com.qa.util.JSONUtil;
 
 @Transactional(SUPPORTS)
-public class DbService {
+public class DbService implements ServiceInterface{
 	
 
 
 	@PersistenceContext(name="primary")
-	EntityManager manager;
+	private EntityManager manager;
 	
 	@Inject
-	JSONUtil myJsonConvertor;
+	private JSONUtil myJsonConvertor;
 	
 	
 	public String getAllAccounts() {

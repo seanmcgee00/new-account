@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.qa.domain.Account;
+import com.qa.repository.ServiceInterface;
 
-public class AccountService {
+public class AccountService  {
 
 	private Map<Integer, Account> accountMap;
 
@@ -35,5 +36,7 @@ public class AccountService {
 		return (int) accountMap.values().stream()
 				.filter(eachAccount -> eachAccount.getFirstName().equals(firstNameOfAccount)).count();
 	}
+
+	
 
 }
