@@ -2,6 +2,7 @@ package com.qa.repository;
 
 
 
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 
 import javax.persistence.EntityManager;
@@ -16,7 +17,7 @@ import java.util.Collection;
 
 import com.qa.domain.Account;
 import com.qa.util.JSONUtil;
-
+@Default
 @Transactional(SUPPORTS)
 public class DbService implements ServiceInterface{
 	
@@ -48,10 +49,7 @@ public class DbService implements ServiceInterface{
 	}
 public Account findAccount(Long id) {
 		
-		 
-	
-		return manager.find(Account.class, id);
-		
+		return manager.find(Account.class, id);	
 	}
 	
 	

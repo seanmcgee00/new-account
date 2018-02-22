@@ -3,11 +3,12 @@ package com.qa.repository;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 
 import com.qa.domain.Account;
 import com.qa.util.JSONUtil;
-
+@Alternative 
 public class MapService  implements ServiceInterface{
 
 	private Map<Integer, Account> accountMap;
@@ -19,17 +20,6 @@ public class MapService  implements ServiceInterface{
 		accountMap = new HashMap<Integer, Account>();
 	}
 
-	public void addAccountFromMap(Account userAccount) {
-		accountMap.put(count, userAccount);
-		count++;
-	}
-
-	public void removeAccountFromMap(Integer accountToRemove) {
-		boolean countExists = accountMap.containsKey(accountToRemove);
-		if (countExists) {
-			accountMap.remove(accountToRemove);
-		}
-	}
 
 	public Map<Integer, Account> getAccountMap() {
 		return accountMap;
@@ -43,20 +33,23 @@ public class MapService  implements ServiceInterface{
 	
 	@Override
 	public String getAllAccounts() {
-		// TODO Auto-generated method stub
-		return null;
+		String result =myJsonConvertor.getJSONForObject(accountMap);	
+		return result;
 	}
 
 	@Override
 	public String findAnAccount(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		int myId= id.intValue();
+		Account thisAccount= accountMap.get(myId);
+		String result =myJsonConvertor.getJSONForObject(thisAccount);	
+		return result;
 	}
 
 	@Override
 	public Account findAccount(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		int myId= id.intValue();
+		Account thisAccount= accountMap.get(myId);
+		return thisAccount;
 	}
 
 	@Override
@@ -66,21 +59,34 @@ public class MapService  implements ServiceInterface{
 		if (countExists) {
 			accountMap.remove(myId);
 		}
-		return null;
+		return "{\"message\": \"account ID:"+myId+" has been sucessfully Deleted from map\"}";
 	}
 
 	@Override
 	public String createAccount(String account) {
-		Account userAccount =myJsonConvertor.getObjectForJSON(account, Account.class);
-		accountMap.put(count, userAccount);
+		Account newAccount =myJsonConvertor.getObjectForJSON(account, Account.class);
+		accountMap.put(count, newAccount);
 		count++;
-		return "{\"message\": \"account has been sucessfully added\"}";
+		return "{\"message\": \"account has been sucessfully added to map\"}";
 	}
 
 	@Override
 	public String updateAccount(Long id, String account) {
-		// TODO Auto-generated method stub
-		return null;
+		int myId= id.intValue();
+		
+		Account newAccount =myJsonConvertor.getObjectForJSON(account, Account.class);
+		Account oldAccount= accountMap.get(myId);
+		if (oldAccount != null) {
+			oldAccount.setAccountNumber(newAccount.getAccountNumber());
+			oldAccount.setFirstName(newAccount.getFirstName());
+			oldAccount.setSecondName(newAccount.getSecondName());
+			return "{\"New message\": \"account sucessfully updated on map\"}";
+	
+		}
+		else {
+			return "{\"message\": \"No Account Found in map\"}";
+		}
+		
 	}
 	
 	
