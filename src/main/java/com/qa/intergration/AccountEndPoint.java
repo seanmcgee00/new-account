@@ -13,6 +13,7 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.persistence.*;
 
+import com.qa.business.BusinessLogic;
 import com.qa.repository.DbService;
 import com.qa.repository.ServiceInterface;
 
@@ -24,6 +25,9 @@ public class AccountEndPoint {
 
 	@Inject
 	private ServiceInterface accountInteraction;
+	
+	@Inject
+	private BusinessLogic checkLogic;
 	
 	@GET
 	@Path("/json")
@@ -45,7 +49,13 @@ public class AccountEndPoint {
 	@POST
 	@Path("/json")
 	public String createAccount(String account){
+		if(checkLogic.checkAccountNumber(account))
+		{
+			return "{\"message\": \"This account is blocked\"}";
+		}
+		
 		return accountInteraction.createAccount(account);
+	
 		
 	}
 	
@@ -54,8 +64,12 @@ public class AccountEndPoint {
 	@Path("/json/{id}")
 	public String updateAccount(@PathParam("id")String id,String account){
 		Long myId= Long.parseLong(id);
+		if(checkLogic.checkAccountNumber(account))
+		{
+			return "{\"message\": \"This account is blocked\"}";
+		}
+	
 		return accountInteraction.updateAccount(myId, account);
-		
 	}
 	
 	@DELETE
