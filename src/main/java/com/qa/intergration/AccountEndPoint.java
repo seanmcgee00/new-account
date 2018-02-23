@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.persistence.*;
 
 import com.qa.repository.DbService;
+import com.qa.repository.ServiceInterface;
 
 @Path("/account")
 @Produces({MediaType.APPLICATION_JSON})
@@ -22,7 +23,7 @@ import com.qa.repository.DbService;
 public class AccountEndPoint {
 
 	@Inject
-	private DbService accountInteraction;
+	private ServiceInterface accountInteraction;
 	
 	@GET
 	@Path("/json")

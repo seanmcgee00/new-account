@@ -2,6 +2,7 @@ package com.qa.repository;
 
 
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 
@@ -17,6 +18,7 @@ import java.util.Collection;
 
 import com.qa.domain.Account;
 import com.qa.util.JSONUtil;
+@RequestScoped
 @Default
 @Transactional(SUPPORTS)
 public class DbService implements ServiceInterface{

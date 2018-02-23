@@ -3,11 +3,14 @@ package com.qa.repository;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Alternative;
+
 import javax.inject.Inject;
 
 import com.qa.domain.Account;
 import com.qa.util.JSONUtil;
+@ApplicationScoped
 @Alternative 
 public class MapService  implements ServiceInterface{
 
